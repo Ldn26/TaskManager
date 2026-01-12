@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ykWFrliICUs=",
+  "success": true,
+  "projectFilePath": "/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.API/TaskManager.API.csproj",
+  "expectedPackageFiles": [
+    "/home/yxf/.nuget/packages/microsoft.aspnetcore.openapi/10.0.0/microsoft.aspnetcore.openapi.10.0.0.nupkg.sha512",
+    "/home/yxf/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
