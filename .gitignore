@@ -1,0 +1,15 @@
+
+
+
+.env 
+# Environment variables file
+.env.*
+# Environment variables files for different environments
+*.local
+# Local environment variables file
+.envrc
+# Direnv environment variables file
+appsettings.Development.json
+# Development environment settings
+appsettings.Staging.json
+# Staging environment settings

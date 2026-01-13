@@ -1,0 +1,16 @@
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Infrastructure.deps.json
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Infrastructure.dll
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Infrastructure.pdb
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Domain.dll
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Domain.pdb
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.csproj.AssemblyReference.cache
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.AssemblyInfoInputs.cache
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.AssemblyInfo.cs
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.csproj.CoreCompileInputs.cache
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.sourcelink.json
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskMana.DD0CDC6B.Up2Date
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.dll
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/refint/TaskManager.Infrastructure.dll
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.pdb
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/ref/TaskManager.Infrastructure.dll

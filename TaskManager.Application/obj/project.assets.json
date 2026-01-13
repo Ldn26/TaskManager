@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "TaskManager.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/TaskManager.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskManager.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "TaskManager.Domain/1.0.0": {
+      "type": "project",
+      "path": "../TaskManager.Domain/TaskManager.Domain.csproj",
+      "msbuildProject": "../TaskManager.Domain/TaskManager.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "TaskManager.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/yxf/.nuget/packages/": {}
@@ -32,7 +51,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/TaskManager.Domain.csproj": {
+              "projectPath": "/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/TaskManager.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

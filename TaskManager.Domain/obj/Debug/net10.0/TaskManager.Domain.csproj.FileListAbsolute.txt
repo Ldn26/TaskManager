@@ -1,0 +1,12 @@
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/bin/Debug/net10.0/TaskManager.Domain.deps.json
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/bin/Debug/net10.0/TaskManager.Domain.dll
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/bin/Debug/net10.0/TaskManager.Domain.pdb
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/TaskManager.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/TaskManager.Domain.AssemblyInfoInputs.cache
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/TaskManager.Domain.AssemblyInfo.cs
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/TaskManager.Domain.csproj.CoreCompileInputs.cache
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/TaskManager.Domain.sourcelink.json
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/TaskManager.Domain.dll
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/refint/TaskManager.Domain.dll
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/TaskManager.Domain.pdb
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Domain/obj/Debug/net10.0/ref/TaskManager.Domain.dll
