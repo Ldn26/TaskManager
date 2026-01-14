@@ -1,4 +1,5 @@
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Infrastructure.deps.json
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Infrastructure.runtimeconfig.json
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Infrastructure.dll
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Infrastructure.pdb
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/bin/Debug/net10.0/TaskManager.Domain.dll
@@ -13,4 +14,5 @@
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.dll
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/refint/TaskManager.Infrastructure.dll
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.pdb
+/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/TaskManager.Infrastructure.genruntimeconfig.cache
 /home/yxf/Documents/my-projects/taskManager/backend/TaskManager.Infrastructure/obj/Debug/net10.0/ref/TaskManager.Infrastructure.dll

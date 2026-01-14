@@ -1,64 +1,93 @@
-// var builder = WebApplication.CreateBuilder(args);
-
-// builder.Services.AddOpenApi();
-
-// var app = builder.Build();
-
-// // Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.MapOpenApi();
-// }
-
-// app.UseHttpsRedirection();
-
-// var summaries = new[]
-// {
-//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-// };
-
-// app.MapGet("/weatherforecast", () =>
-// {
-//     var forecast =  Enumerable.Range(1, 5).Select(index =>
-//         new WeatherForecast
-//         (
-//             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//             Random.Shared.Next(-20, 55),
-//             summaries[Random.Shared.Next(summaries.Length)]
-//         ))
-//         .ToArray();
-//     return forecast;
-// })
-// .WithName("GetWeatherForecast");
-
-// app.Run();
-
-// record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-// {
-//     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-// }
 using TaskManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Replace with your Supabase connection string
+
 var connectionString = builder.Configuration.GetConnectionString("Supabase");
 
-// builder.Services.AddDbContext<AppDbContext>(options =>
-    // options.UseNpgsql(connectionString));
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
+// add swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
 
+// ---------------------------
+// 3️⃣ JWT Authentication (Optional, ready for later)
+// ---------------------------
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(options =>
+//     {
+//         options.TokenValidationParameters = new TokenValidationParameters
+//         {
+//             ValidateIssuer = true,
+//             ValidateAudience = true,
+//             ValidateLifetime = true,
+//             ValidateIssuerSigningKey = true,
+//             ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//             ValidAudience = builder.Configuration["Jwt:Audience"],
+//             IssuerSigningKey = new SymmetricSecurityKey(
+//                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+//         };
+//     });
+
+// builder.Services.AddAuthorization();
+
+// ---------------------------
+// 4️⃣ Build the App
+// ---------------------------
 var app = builder.Build();
-// add test route 
-Console.WriteLine("app is running on port " + builder.Configuration.GetValue<string>("PORT") ?? "4000");
+
+// ---------------------------
+// 5️⃣ Swagger Setup
+// ---------------------------
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "TaskManager API V1");
+        c.RoutePrefix = string.Empty; // Swagger at root URL
+    });
+}
+
+// ---------------------------
+// 6️⃣ Middleware
+// ---------------------------
+app.UseHttpsRedirection();
+// app.UseAuthentication(); // Uncomment when JWT is enabled
+// app.UseAuthorization();
+
+// ---------------------------
+// 7️⃣ Test Routes
+// ---------------------------
+app.MapGet("/", () => "TaskManager API is running!");
+app.MapGet("/health", () => Results.Ok("Healthy"));
+
+// ---------------------------
+// 8️⃣ Database Connection Test (console)
+// ---------------------------
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    try
+    {
+        if (db.Database.CanConnect())
+            Console.WriteLine("✅ Successfully connected to database!");
+        else
+            Console.WriteLine("❌ Cannot connect to database!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"❌ Database connection failed: {ex.Message}");
+    }
+}
 
 
-// app.UseSwagger();
-// app.UseSwaggerUI();
-// app.MapControllers();
+app.MapControllers();
+
 
 app.Run();
