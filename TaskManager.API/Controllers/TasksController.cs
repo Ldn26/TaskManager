@@ -72,7 +72,8 @@ namespace TaskManager.API.Controllers;
 //     }
 // }
 [ApiController]
-// to give asp.dotnet the ability to take the controller Name TasksController     & make it tolowercase 
+// to give asp.dotnet the ability to take the controller Name TasksController 
+//    not the suffix      the route nae will be Tasks  & make it tolowercase 
 //   and this this the routename  
 // like app.use("/api/tasks", tasksRouter);  in node 
 

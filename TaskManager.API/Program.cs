@@ -14,10 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// ---------------------------
-// 3️⃣ JWT Authentication (Optional, ready for later)
-// ---------------------------
+// jwt
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //     .AddJwtBearer(options =>
 //     {
@@ -37,13 +34,9 @@ builder.Services.AddSwaggerGen();
 // builder.Services.AddAuthorization();
 
 // ---------------------------
-// 4️⃣ Build the App
-// ---------------------------
 var app = builder.Build();
 
-// ---------------------------
-// 5️⃣ Swagger Setup
-// ---------------------------
+// add swagger ui
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -54,22 +47,12 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// ---------------------------
-// 6️⃣ Middleware
-// ---------------------------
+// 6️Middleware
 app.UseHttpsRedirection();
 // app.UseAuthentication(); // Uncomment when JWT is enabled
 // app.UseAuthorization();
 
-// ---------------------------
-// 7️⃣ Test Routes
-// ---------------------------
-app.MapGet("/", () => "TaskManager API is running!");
-app.MapGet("/health", () => Results.Ok("Healthy"));
 
-// ---------------------------
-// 8️⃣ Database Connection Test (console)
-// ---------------------------
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();

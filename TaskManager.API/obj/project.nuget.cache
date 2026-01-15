@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "oilgvz3uR94=",
+  "dgSpecHash": "lzmimlvhTiA=",
   "success": true,
   "projectFilePath": "/home/yxf/Documents/my-projects/taskManager/backend/TaskManager.API/TaskManager.API.csproj",
   "expectedPackageFiles": [
+    "/home/yxf/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/yxf/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/yxf/.nuget/packages/microsoft.aspnetcore.openapi/10.0.0/microsoft.aspnetcore.openapi.10.0.0.nupkg.sha512",
     "/home/yxf/.nuget/packages/microsoft.build.framework/18.0.2/microsoft.build.framework.18.0.2.nupkg.sha512",
