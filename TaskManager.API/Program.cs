@@ -10,7 +10,9 @@ var connectionString = builder.Configuration.GetConnectionString("Supabase");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// add swagger
+    
+builder.Services.AddScoped<IJwtService, JwtService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
