@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Infrastructure;
@@ -9,8 +10,7 @@ public class UsersController : ControllerBase   {
     public UsersController(AppDbContext context)  {
         _context = context  ; 
     } 
-        [HttpPost]
-//    retrun the User in create User
+        [HttpPost("register")]
   public ActionResult<User> CreateUser(RegisterDto dto)  
     { 
         if(_context.Users.Any(u=>u.Email == dto.Email))  
@@ -19,9 +19,9 @@ public class UsersController : ControllerBase   {
         }
 
 
- if(string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)  
+ if(string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 4)  
         { 
-            return BadRequest("Password must be at least 6 characters long."); 
+            return BadRequest("Password must be at least 4 characters long."); 
         }
 
 
@@ -48,7 +48,44 @@ public class UsersController : ControllerBase   {
      } 
 
 
+[HttpPost("login")]
+public ActionResult LoginUser(LoginDto dto)
+{
+    var user = _context.Users.SingleOrDefault(u => u.Email == dto.Email);
 
+    if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+    {
+        return Unauthorized("Invalid email or password.");
+    }
+
+    var accessToken = Guid.NewGuid().ToString();
+    var refreshToken = Guid.NewGuid().ToString();
+
+    Response.Cookies.Append("AccessToken", accessToken, new CookieOptions
+    {
+        HttpOnly = true,
+        SameSite = SameSiteMode.Strict,
+        Secure = true,
+        Path = "/",
+        MaxAge = TimeSpan.FromHours(1)
+    });
+
+    Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
+    {
+        HttpOnly = true,
+        SameSite = SameSiteMode.Strict,
+        Secure = true,
+        Path = "/",
+        MaxAge = TimeSpan.FromDays(7)
+    });
+
+    return Ok(new
+    {
+        message = "Login successful",
+        userId = user.Id,
+        email = user.Email
+    });
+}
 
 
 
