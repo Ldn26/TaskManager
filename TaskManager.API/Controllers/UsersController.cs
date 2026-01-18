@@ -1,5 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Infrastructure;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Linq;
+using System;
+
 namespace TaskManager.API.Controllers;
 
 
@@ -10,11 +16,14 @@ public class UsersController : ControllerBase
     private readonly AppDbContext _context;
     private readonly IJwtService _jwtService;
 
-    public UsersController(AppDbContext context, IJwtService jwtService)
-    {
-        _context = context;
-        _jwtService = jwtService;
-    }
+private readonly IConfiguration _config;
+
+public UsersController(AppDbContext context, IJwtService jwtService, IConfiguration config)
+{
+    _context = context;
+    _jwtService = jwtService;
+    _config = config;
+}
 
  
     [HttpPost("register")]
@@ -33,11 +42,13 @@ public class UsersController : ControllerBase
             return BadRequest("Full name is required.");
 
         var user = new User
-        {
+        { 
+                Id = Guid.NewGuid(),
             Email = dto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
             FullName = dto.FullName,
-            Role = role
+            Role = role  
+            
         };
 
         _context.Users.Add(user);
@@ -56,8 +67,7 @@ public class UsersController : ControllerBase
             return Unauthorized("Invalid email or password.");
 
         var accessToken = _jwtService.GenerateAccessToken(user);
-        var refreshToken = _jwtService.GenerateRefreshToken();
-
+        var refreshToken = _jwtService.GenerateRefreshToken(user);
         Response.Cookies.Append("AccessToken", accessToken, new CookieOptions
         {
             HttpOnly = true,
@@ -98,29 +108,60 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-    // refresh
-   
-    [HttpPost("refresh")]
+
+
+
+[HttpPost("refresh")]
 public ActionResult RefreshToken()
 {
     var refreshToken = Request.Cookies["RefreshToken"];
     if (string.IsNullOrEmpty(refreshToken))
         return Unauthorized("No refresh token");
 
-    var user = _context.Users.FirstOrDefault();
-    if (user == null)
-        return Unauthorized("User not found");
-
-    var newAccessToken = _jwtService.GenerateAccessToken(user);
-
-    Response.Cookies.Append("AccessToken", newAccessToken, new CookieOptions
+    try
     {
-        HttpOnly = true,
-        Secure = true,
-        SameSite = SameSiteMode.Strict,
-        Expires = DateTime.UtcNow.AddMinutes(15)
-    });
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
 
-    return Ok(new { message = "Access token refreshed" });
+        // Validate the refresh token
+        tokenHandler.ValidateToken(refreshToken, new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        }, out SecurityToken validatedToken);
+
+        var jwtToken = (JwtSecurityToken)validatedToken;
+
+        // Extract user ID from the refresh token
+        var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
+        if (userIdClaim == null)
+            return Unauthorized("Invalid refresh token");
+
+        var userId = Guid.Parse(userIdClaim.Value); // your User Id is a Guid
+        var user = _context.Users.Find(userId);
+        if (user == null)
+            return Unauthorized("User not found");
+
+        var newAccessToken = _jwtService.GenerateAccessToken(user);
+
+        Response.Cookies.Append("AccessToken", newAccessToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddMinutes(15)
+        });
+
+        return Ok(new { message = "Access token refreshed" });
+    }
+    catch
+    {
+        return Unauthorized("Invalid refresh token");
+    }
 }
+
+
 }
