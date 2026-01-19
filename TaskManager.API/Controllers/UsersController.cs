@@ -163,5 +163,20 @@ public ActionResult RefreshToken()
     }
 }
 
+    [HttpGet("users")]
+// get users  whoe they have role = User 
+public ActionResult GetMembers()
+{
+    var users = _context.Users.Select(u => new
+    {
+        u.Id,
+        u.Email,
+        u.FullName,
+        u.Role
+    }).Where(u => u.Role == UserRole.Member).ToList();
+    return Ok(users);
+} 
+
+
 
 }

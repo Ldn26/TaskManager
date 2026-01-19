@@ -4,5 +4,12 @@ public class User
     public required string FullName { get; set; }
     public required string Email { get; set; }
     public required string PasswordHash { get; set; }
-    public UserRole Role { get; set; }
+    public UserRole Role { get; set; } 
+
+
+        // Projects the user belongs to
+    public ICollection<ProjectMember> Projects { get; set; } = new List<ProjectMember>();
+
+    // Tasks assigned to this user
+    public ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 }
