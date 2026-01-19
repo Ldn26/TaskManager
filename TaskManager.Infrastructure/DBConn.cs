@@ -20,6 +20,13 @@ namespace TaskManager.Infrastructure
 {
     base.OnModelCreating(modelBuilder);
 
+// remove the timezon 
+
+modelBuilder.Entity<TaskItem>()
+    .Property(t => t.DueDate)
+    .HasColumnType("timestamp without time zone");
+
+
     // Configure ProjectMember as composite key
     modelBuilder.Entity<ProjectMember>()
         .HasKey(pm => new { pm.ProjectId, pm.UserId });
