@@ -10,9 +10,23 @@ var connectionString = builder.Configuration.GetConnectionString("Supabase");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
+});
+
     
 builder.Services.AddScoped<IJwtService, JwtService>();
-
 builder.Services
     .AddControllers()
     .AddJsonOptions(options =>
@@ -44,6 +58,7 @@ builder.Services.AddSwaggerGen();
 
 // ---------------------------
 var app = builder.Build();
+app.UseCors("AllowFrontend");
 
 // add swagger ui
 if (app.Environment.IsDevelopment())

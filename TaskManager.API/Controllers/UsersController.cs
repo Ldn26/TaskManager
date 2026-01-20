@@ -177,6 +177,19 @@ public ActionResult GetMembers()
     return Ok(users);
 } 
 
+   
+
+
+[HttpPost("logout")]
+    public ActionResult Logout()
+{
+    Response.Cookies.Delete("AccessToken");
+    Response.Cookies.Delete("RefreshToken");
+    return Ok(new { message = "Logged out successfully" });
+ 
+}
+
+
 
 
 }

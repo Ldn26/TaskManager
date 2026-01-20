@@ -71,4 +71,21 @@ public class ProjectsController : ControllerBase
 
         return CreatedAtAction(nameof(GetProject), new { id = project.Id }, project);
     }
+
+
+
+//   [HttpGet]
+//     public async Task<ActionResult<IEnumerable<Project>>> GetAllProjects()
+//         {
+//             var projects = await _context.Projects
+//                 .Include(p => p.Tasks)
+//                 .Include(p => p.Members)
+//                     .ThenInclude(pm => pm.User)
+//                 .ToListAsync();
+    
+//             return Ok(projects);
+//         }
+
+
+
 }
