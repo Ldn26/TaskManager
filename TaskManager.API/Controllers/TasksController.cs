@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Infrastructure;
@@ -8,14 +6,10 @@ namespace TaskManager.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-// // to give asp.dotnet the ability to take the controller Name TasksController 
-// //    not the suffix      the route nae will be Tasks  & make it tolowercase 
-// //   and this this the routename  
 public class TasksController : ControllerBase
 {
     private readonly AppDbContext _context;
-//     // it's dependency injection   to  make the contoller use the db  of the program.cs   not to create a new Interfaces\ 
-//     // so  “Don’t create what you need. Ask for it.”   wchrayk kho
+
     public TasksController(AppDbContext context)
     {
         _context = context;
@@ -50,7 +44,14 @@ public class TasksController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<TaskItem>> CreateTask(TaskDto dto)
     {
-        var project = await _context.Projects.FindAsync(dto.ProjectId);
+        // Validate required fields
+        if (string.IsNullOrEmpty(dto.Title))
+            return BadRequest("Title is required");
+
+        if (dto.ProjectId == null)
+            return BadRequest("ProjectId is required");
+
+        var project = await _context.Projects.FindAsync(dto.ProjectId.Value);
         if (project == null)
             return NotFound("Project not found");
 
@@ -58,7 +59,7 @@ public class TasksController : ControllerBase
         if (dto.AssignedUserId.HasValue)
         {
             bool isMember = await _context.ProjectMembers
-                .AnyAsync(pm => pm.ProjectId == dto.ProjectId && pm.UserId == dto.AssignedUserId.Value);
+                .AnyAsync(pm => pm.ProjectId == dto.ProjectId.Value && pm.UserId == dto.AssignedUserId.Value);
 
             if (!isMember)
                 return BadRequest("Assigned user is not a member of the project");
@@ -66,11 +67,11 @@ public class TasksController : ControllerBase
 
         var task = new TaskItem
         {
-            Title = dto.Title,
-            Status = dto.Status,
-            Priority = dto.Priority,
-            DueDate = dto.DueDate,
-            ProjectId = dto.ProjectId,
+            Title = dto.Title!,
+            Status = dto.Status ?? TaskStatus.Todo,       // default if null
+            Priority = dto.Priority ?? Priority.Medium,   // default if null
+            DueDate = dto.DueDate ?? DateTime.UtcNow,     // default if null
+            ProjectId = dto.ProjectId.Value,
             AssignedUserId = dto.AssignedUserId
         };
 
@@ -85,22 +86,37 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> UpdateTask(Guid id, TaskDto dto)
     {
         var task = await _context.Tasks.FindAsync(id);
-        if (task == null) return NotFound();
+        if (task == null)
+            return NotFound();
 
-        task.Title = dto.Title;
-        task.Status = dto.Status;
-        task.Priority = dto.Priority;
-        task.DueDate = dto.DueDate;
-        task.AssignedUserId = dto.AssignedUserId;
+        // Update only if value is provided
+        if (!string.IsNullOrEmpty(dto.Title))
+            task.Title = dto.Title;
 
-        // Optional: check assigned user is part of project
-        if (dto.AssignedUserId.HasValue)
+        if (dto.Status != null)
+            task.Status = dto.Status.Value;
+
+        if (dto.Priority != null)
+            task.Priority = dto.Priority.Value;
+
+        if (dto.DueDate != null)
+            task.DueDate = dto.DueDate.Value;
+
+        if (dto.ProjectId != null)
+            task.ProjectId = dto.ProjectId.Value;
+
+        if (dto.AssignedUserId != null)
         {
+            // Determine ProjectId to check: new one if provided, else current
+            Guid projectIdToCheck = dto.ProjectId ?? task.ProjectId;
+
             bool isMember = await _context.ProjectMembers
-                .AnyAsync(pm => pm.ProjectId == task.ProjectId && pm.UserId == dto.AssignedUserId.Value);
+                .AnyAsync(pm => pm.ProjectId == projectIdToCheck && pm.UserId == dto.AssignedUserId.Value);
 
             if (!isMember)
                 return BadRequest("Assigned user is not a member of the project");
+
+            task.AssignedUserId = dto.AssignedUserId;
         }
 
         await _context.SaveChangesAsync();

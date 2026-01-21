@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 var connectionString = builder.Configuration.GetConnectionString("Supabase");
+// Fix PostgreSQL UTC vs timestamp without time zone
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

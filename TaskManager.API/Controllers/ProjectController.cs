@@ -74,6 +74,21 @@ public class ProjectsController : ControllerBase
 
 
 
+[HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProject(Guid id)
+    {
+        var project = await _context.Projects.FindAsync(id);
+        if (project == null)
+        {
+            return NotFound();
+        }
+
+        _context.Projects.Remove(project);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
 //   [HttpGet]
 //     public async Task<ActionResult<IEnumerable<Project>>> GetAllProjects()
 //         {
