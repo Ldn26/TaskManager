@@ -103,4 +103,14 @@ public class ProjectsController : ControllerBase
 
 
 
+
+[HttpGet("nbrOfProjects") ]
+ public async Task<ActionResult<int>> GetNumberOfProjects()
+{
+    int count = await _context.Projects.CountAsync();
+    return count;
 }
+
+
+
+  }

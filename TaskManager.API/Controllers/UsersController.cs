@@ -111,6 +111,21 @@ public UsersController(AppDbContext context, IJwtService jwtService, IConfigurat
 
 
 
+
+
+//    the nbr of users
+ [HttpGet("nbrOfUsers")]
+    public ActionResult GetNumberOfUsers()
+    {
+        int count = _context.Users.Count();
+        return Ok(count);
+    }
+
+
+
+
+
+
 [HttpPost("refresh")]
 public ActionResult RefreshToken()
 {
@@ -172,7 +187,7 @@ public ActionResult GetMembers()
         u.Id,
         u.Email,
         u.FullName,
-        u.Role
+        u.Role  
     }).Where(u => u.Role == UserRole.Member).ToList();
     return Ok(users);
 } 
@@ -189,7 +204,12 @@ public ActionResult GetMembers()
  
 }
 
+  
+// route to get number of users
+// api/users/nbrOfUsers
 
 
-
-}
+ 
+ 
+ 
+   }

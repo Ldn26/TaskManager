@@ -135,4 +135,92 @@ public class TasksController : ControllerBase
 
         return NoContent();
     }
+
+
+
+
+
+
+
+[HttpPut("updateStatus/{id}")]
+public async Task<IActionResult> UpdateTaskStatus(Guid id, [FromBody] TaskStatusUpdateDto dto)
+{
+    var task = await _context.Tasks.FindAsync(id);
+    if (task == null)
+        return NotFound();
+
+    task.Status = dto.Status;
+    await _context.SaveChangesAsync();
+
+    return NoContent();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+[HttpGet("getTaskByStatus")]
+public async Task<ActionResult<IEnumerable<TaskByStatusDto>>> GetTasksByStatus(
+    [FromQuery] TaskStatus status)
+{
+    var tasks = await _context.Tasks
+        .Where(t => t.Status == status)
+        .Select(t => new TaskByStatusDto
+        {
+            Id = t.Id,
+            Title = t.Title,
+            Status = t.Status,
+            ProjectId = t.Project.Id,
+            ProjectName = t.Project.Name
+        })
+        .ToListAsync();
+
+    return Ok(tasks);
+}
+    [HttpGet("nbrOfTasks")]    public async Task<ActionResult<int>> GetNumberOfTasks()
+    {
+        int count = await _context.Tasks.CountAsync();
+        return count;
+    }
+
+
+
+
+
+[HttpGet("tasksByUser/{userId}")]
+public async Task<ActionResult<IEnumerable<TaskItem>>> GetTasksByUser(Guid userId)
+{
+    var tasks = await _context.Tasks
+        .Where(t => t.AssignedUserId == userId)
+        .Include(t => t.Project)
+        .Include(t => t.AssignedUser)
+        .ToListAsync();
+    return Ok(tasks);
+}
+
+
+}
+

@@ -1,12 +1,14 @@
 public class TaskDto
 {
-    public string Title { get; set; } = null!;
-    public TaskStatus Status { get; set; }
-    public Priority Priority { get; set; }
-    public DateTime DueDate { get; set; }
-    public Guid ProjectId { get; set; }
+    public string? Title { get; set; }
+    public TaskStatus? Status { get; set; }
+    public Priority? Priority { get; set; }
+    public DateTime? DueDate { get; set; }
+    public Guid? ProjectId { get; set; }
     public Guid? AssignedUserId { get; set; }
 }
+
+
 
 public class CreateProjectDto
 {
@@ -14,3 +16,6 @@ public class CreateProjectDto
     public ProjectStatus Status { get; set; }
     public List<Guid> MemberIds { get; set; } = new List<Guid>();
 }
+
+
+
