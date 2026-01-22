@@ -1,14 +1,4 @@
-# TaskManager
-Here's a comprehensive, engaging README.md for your TaskManager repository:
-
-```markdown
 # TaskManager - Modern Task and Project Management System
-
-![TaskManager Logo](https://raw.githubusercontent.com/Ldn26/TaskManager/main/docs/logo.png)
-
-🚀 **A complete task and project management solution** built with .NET Core that helps teams organize, track, and complete their work efficiently.
-
----
 
 ## ✨ Features
 
@@ -68,10 +58,7 @@ Before you begin, ensure you have the following installed:
 2. **Set up environment variables:**
    Create a `.env` file in the root directory with your configuration:
    ```env
-   ASPNETCORE_ENVIRONMENT=Development
    Jwt__Key=your-strong-secret-key-here
-   Jwt__Issuer=your-app
-   <!-- Jwt__Audience=your-app-users -->
    ConnectionStrings__Supabase=Host=your-db-host;Port=5432;Username=your-username;Password=your-password;Database=your-db;SSL Mode=Require
    ```
 <!-- 
@@ -94,7 +81,7 @@ Before you begin, ensure you have the following installed:
    ```
 
 6. **Access the API:**
-   - API: `https://localhost:7183/swagger`
+   - API: `https://localhost:5260/index.html`
    - Frontend : `http://localhost:3000`
 
 ---
@@ -188,7 +175,6 @@ TaskManager/
 
 | Variable | Description | Example Value |
 |----------|-------------|---------------|
-| `ASPNETCORE_ENVIRONMENT` | Application environment | `Development` |
 | `Jwt__Key` | JWT secret key | `your-strong-secret-key-here` |
 <!-- | `Jwt__Issuer` | JWT issuer | `your-app` | -->
 <!-- | `Jwt__Audience` | JWT audience | `your-app-users` | -->
@@ -373,23 +359,8 @@ For production deployments, consider using Kubernetes with:
 
 ---
 
-## 🎉 Success Stories
 
-> "TaskManager transformed how our team manages projects. We've reduced project completion time by 30% and improved collaboration across departments."
-> - Sarah Johnson, Project Manager at TechCorp
 
-> "The API is well-documented and easy to integrate with our existing systems. The JWT authentication is secure and straightforward."
-> - Michael Chen, Software Architect at Global Solutions
-
----
-
-## 📢 Join the Community
-
-- **GitHub Discussions:** [Join our discussions](https://github.com/Ldn26/TaskManager/discussions)
-- **Twitter:** [@TaskManagerApp](https://twitter.com/TaskManagerApp)
-- **Newsletter:** [Subscribe for updates](https://taskmanagerapp.com/newsletter)
-
----
 
 ## 💡 Pro Tips
 
@@ -446,70 +417,10 @@ For production deployments, consider using Kubernetes with:
 
 ---
 
-## 🎊 Contribution Rewards
+---
 
-We appreciate all contributions! Here's how we recognize them:
-
-| Type | Reward |
-|------|--------|
-| First PR | 🎁 TaskManager T-shirt |
-| 10 PRs | 🎁 Custom TaskManager mug |
-| 50 PRs | 🎁 TaskManager hoodie |
-| Top Contributor (quarterly) | 🎁 TaskManager backpack |
 
 ---
 
-## 📜 Change Log
-
-For details on recent changes, see the [CHANGELOG.md](CHANGELOG.md) file.
-
 ---
 
-## 📢 Announcements
-
-Follow our blog for the latest updates:
-[https://taskmanagerapp.com/blog](https://taskmanagerapp.com/blog)
-
----
-
-## 🔄 Migration Guide
-
-### From v1.0 to v2.0
-
-**Breaking Changes:**
-1. JWT token structure has changed (backward incompatible)
-2. Project status enum values have been updated
-3. Database schema changes required
-
-**Migration Steps:**
-1. Update your client applications to use the new token format
-2. Apply the latest database migrations
-3. Update your project status handling code
-
-For more details, see the [Migration Guide](docs/migration-guide.md).
-
----
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=ldn26/TaskManager&type=Date)](https://star-history.com/#ldn26/TaskManager&Date)
-```
-
-This README.md provides:
-
-1. **Clear project overview** with compelling features
-2. **Detailed installation instructions** with code snippets
-3. **Comprehensive usage examples** with API endpoints
-4. **Project structure visualization**
-5. **Contribution guidelines** and development setup
-6. **Roadmap** with planned features
-7. **Performance considerations** and best practices
-8. **Deployment options** including Docker
-9. **Community engagement** sections
-10. **Visual elements** like emojis and badges
-11. **Pro tips** for developers
-12. **Important notes** for production use
-13. **Migration information** for updates
-14. **Star history** visualization
-
-The README is structured to be both informative for new contributors and practical for developers looking to get started or make improvements. It follows modern GitHub README best practices while maintaining a professional and engaging tone.
