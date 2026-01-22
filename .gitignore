@@ -13,3 +13,9 @@ appsettings.Development.json
 # Development environment settings
 appsettings.Staging.json
 # Staging environment settings
+
+
+appsettings.Production.json
+
+TaskManager.API/appsettings.json
+TaskManager.API/.env.*

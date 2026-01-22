@@ -1,10 +1,18 @@
 using TaskManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
+
+
+Env.Load(); 
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-var connectionString = builder.Configuration.GetConnectionString("Supabase");
+// var connectionString = builder.Configuration.GetConnectionString("Supabase");
+
+var connectionString  = Environment.GetEnvironmentVariable("SUPABASE_CONNECTION_STRING")  ; 
+
 // Fix PostgreSQL UTC vs timestamp without time zone
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -82,13 +90,21 @@ app.UseHttpsRedirection();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+       Console.WriteLine("connectionString")   ;
+
+   Console.WriteLine(connectionString)   ;
     try
     {
         if (db.Database.CanConnect())
-            Console.WriteLine("✅ Successfully connected to database!");
-        else
-            Console.WriteLine("❌ Cannot connect to database!");
-    }
+
+{            Console.WriteLine("✅ Successfully connected to database!");
+}        else
+
+{            Console.WriteLine("❌ Cannot connect to database!");
+       Console.WriteLine("connectionString")   ;
+
+   Console.WriteLine(connectionString)   ;
+}    }
     catch (Exception ex)
     {
         Console.WriteLine($"❌ Database connection failed: {ex.Message}");
